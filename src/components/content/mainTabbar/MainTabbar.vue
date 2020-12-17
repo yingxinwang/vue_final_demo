@@ -1,6 +1,6 @@
 <template>
   <tab-bar>
-    <tab-bar-item path="/all">
+    <tab-bar-item path="/home">
       <template #item-icon>
         <img src="~@/assets/img/tabbarPic/all.png" alt="" />
       </template>
@@ -11,7 +11,7 @@
         <div>首页</div>
       </template>
     </tab-bar-item>
-    <tab-bar-item path="/class">
+    <tab-bar-item path="/category">
       <template #item-icon>
         <img src="~@/assets/img/tabbarPic/class.png" alt="" />
       </template>
@@ -33,7 +33,7 @@
         <div>购物车</div>
       </template>
     </tab-bar-item>
-    <tab-bar-item path="/mine">
+    <tab-bar-item path="/profile">
       <template #item-icon>
         <img src="~@/assets/img/tabbarPic/mine.png" alt="" />
       </template>

@@ -1,26 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import All from '@/views/all/All.vue'
+import Home from '@/views/home/Home.vue'
 
 const routes = [
   {
     path: '',
-    redirect: 'all'
+    redirect: 'home'
   },
   {
-    path: '/all',
-    component: All
+    path: '/home',
+    component: Home
   },
   {
-    path: '/class',
-    component: () => import('@/views/class/Class.vue')
+    path: '/category',
+    component: () => import('@/views/category/Category.vue')
   },
   {
     path: '/cart',
     component: () => import('@/views/cart/Cart.vue')
   },
   {
-    path: '/mine',
-    component: () => import('@/views/mine/Mine.vue')
+    path: '/profile',
+    component: () => import('@/views/profile/Profile.vue')
   }
 ]
 

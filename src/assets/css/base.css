@@ -4,8 +4,8 @@
 /* 定义变量 */
 :root {
   --color-text      : #666666;
-  --color-high-txt  : #ff5777;
-  --color-tint      : #ff8198;
+  --color-high-txt  : #33a4e0;
+  --color-tint      : #45a9df;
   --color-background: #fff;
   --font-size       : 14px;
   --line-height     : 1.5;
