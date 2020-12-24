@@ -4,20 +4,29 @@
     <home-swiper :banners="banners"></home-swiper>
     <home-recommand-views :recommends="recommends"></home-recommand-views>
     <home-feature-view></home-feature-view>
+    <tab-control :titles="['', '', '']"></tab-control>
   </div>
 </template>
 
 <script>
-import NavBar from "@/components/common/navbar/NavBar.vue";
 import homeSwiper from "./childComponents/homeSwiper";
 import homeRecommendViews from "./childComponents/homeRecommendViews";
 import homeFeatureView from "./childComponents/homeFeatureView";
+
+import NavBar from "@/components/common/navbar/NavBar.vue";
+import TabControl from "@/components/content/tabControl/tabControl";
 
 import { getHomeMultidata } from "@/network/home";
 
 export default {
   name: "Home",
-  components: { NavBar, homeSwiper, homeRecommendViews, homeFeatureView },
+  components: {
+    NavBar,
+    homeSwiper,
+    homeRecommendViews,
+    homeFeatureView,
+    TabControl,
+  },
   data() {
     return {
       banners: [],
