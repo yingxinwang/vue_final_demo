@@ -4,7 +4,8 @@
     <home-swiper :banners="banners"></home-swiper>
     <home-recommand-views :recommends="recommends"></home-recommand-views>
     <home-feature-view></home-feature-view>
-    <tab-control :titles="['', '', '']"></tab-control>
+    <tab-control :titles="['', '', '']" @tabClick="tabClick"></tab-control>
+    <goods-list :goods="goods[currentType].list"></goods-list>
   </div>
 </template>
 
@@ -15,8 +16,9 @@ import homeFeatureView from "./childComponents/homeFeatureView";
 
 import NavBar from "@/components/common/navbar/NavBar.vue";
 import TabControl from "@/components/content/tabControl/tabControl";
+import GoodsList from "@/components/content/goods/goodsList";
 
-import { getHomeMultidata } from "@/network/home";
+import { getHomeMultidata, getHomeGoods } from "@/network/home";
 
 export default {
   name: "Home",
@@ -26,19 +28,62 @@ export default {
     homeRecommendViews,
     homeFeatureView,
     TabControl,
+    GoodsList,
   },
   data() {
     return {
       banners: [],
       recommends: [],
+      goods: {
+        pop: { page: 0, list: [] },
+        news: { page: 0, list: [] },
+        sell: { page: 0, list: [] },
+      },
+      currentType: 'pop'
     };
   },
   created() {
     // 1.请求多个数据
-    getHomeMultidata().then((res) => {
-      this.banners = res.data.banner.list;
-      this.recommends = res.data.recommend.list;
-    });
+    this.getHomeMultidata();
+    // 2.请求商品数据
+    this.getHomeGoods("pop");
+    this.getHomeGoods("news");
+    this.getHomeGoods("sell");
+  },
+  methods: {
+    /**
+     * 事件监听相关方法
+     */
+    tabClick(index) {
+      switch(index){
+        case 0:
+          this.currentType = 'pop'
+          break
+        case 1:
+          this.currentType = 'news'
+          break
+        case 2:
+          this.currentType = 'sell'
+          break
+      }
+    },
+
+    /**
+     * 网络请求相关方法
+     */
+    getHomeMultidata() {
+      getHomeMultidata().then((res) => {
+        this.banners = res.data.banner.list;
+        this.recommends = res.data.recommend.list;
+      });
+    },
+    getHomeGoods(type) {
+      const page = this.goods[type].page + 1;
+      getHomeGoods(type, page).then((res) => {
+        this.goods[type].list.push(...res.data.list);
+        this.goods[type].page += 1;
+      });
+    },
   },
 };
 </script>
