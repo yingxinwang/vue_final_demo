@@ -1,11 +1,13 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><template #center>购物街</template></nav-bar>
-    <home-swiper :banners="banners"></home-swiper>
-    <home-recommand-views :recommends="recommends"></home-recommand-views>
-    <home-feature-view></home-feature-view>
-    <tab-control :titles="['', '', '']" @tabClick="tabClick"></tab-control>
-    <goods-list :goods="goods[currentType].list"></goods-list>
+    <scroll>
+      <home-swiper :banners="banners"></home-swiper>
+      <home-recommand-views :recommends="recommends"></home-recommand-views>
+      <home-feature-view></home-feature-view>
+      <tab-control :titles="['', '', '']" @tabClick="tabClick"></tab-control>
+      <goods-list :goods="goods[currentType].list"></goods-list>
+    </scroll>
   </div>
 </template>
 
@@ -17,6 +19,7 @@ import homeFeatureView from "./childComponents/homeFeatureView";
 import NavBar from "@/components/common/navbar/NavBar.vue";
 import TabControl from "@/components/content/tabControl/tabControl";
 import GoodsList from "@/components/content/goods/goodsList";
+import scroll from "@/components/common/scroll/scroll";
 
 import { getHomeMultidata, getHomeGoods } from "@/network/home";
 
@@ -29,6 +32,7 @@ export default {
     homeFeatureView,
     TabControl,
     GoodsList,
+    scroll,
   },
   data() {
     return {
@@ -39,7 +43,7 @@ export default {
         news: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
-      currentType: 'pop'
+      currentType: "pop",
     };
   },
   created() {
@@ -55,16 +59,16 @@ export default {
      * 事件监听相关方法
      */
     tabClick(index) {
-      switch(index){
+      switch (index) {
         case 0:
-          this.currentType = 'pop'
-          break
+          this.currentType = "pop";
+          break;
         case 1:
-          this.currentType = 'news'
-          break
+          this.currentType = "news";
+          break;
         case 2:
-          this.currentType = 'sell'
-          break
+          this.currentType = "sell";
+          break;
       }
     },
 
@@ -89,6 +93,10 @@ export default {
 </script>
 
 <style scoped>
+#home {
+  height: 100vh;
+}
+
 .home-nav {
   /* background-color: var(--color-tint); */
   background-color: #45a9df;
