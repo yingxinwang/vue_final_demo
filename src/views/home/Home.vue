@@ -1,13 +1,16 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><template #center>购物街</template></nav-bar>
-    <scroll>
+
+    <scroll ref="scroll" :probe-type="3" @scroll="ccontentScroll">
       <home-swiper :banners="banners"></home-swiper>
       <home-recommand-views :recommends="recommends"></home-recommand-views>
       <home-feature-view></home-feature-view>
       <tab-control :titles="['', '', '']" @tabClick="tabClick"></tab-control>
       <goods-list :goods="goods[currentType].list"></goods-list>
     </scroll>
+
+    <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
   </div>
 </template>
 
@@ -19,7 +22,8 @@ import homeFeatureView from "./childComponents/homeFeatureView";
 import NavBar from "@/components/common/navbar/NavBar.vue";
 import TabControl from "@/components/content/tabControl/tabControl";
 import GoodsList from "@/components/content/goods/goodsList";
-import scroll from "@/components/common/scroll/scroll";
+import scroll from "@/components/commson/scroll/scroll";
+import BackTop from "@/components/content/backTop/backTop";
 
 import { getHomeMultidata, getHomeGoods } from "@/network/home";
 
@@ -33,6 +37,7 @@ export default {
     TabControl,
     GoodsList,
     scroll,
+    BackTop,
   },
   data() {
     return {
@@ -44,6 +49,7 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
+      isShowBackTop: false,
     };
   },
   created() {
@@ -70,6 +76,12 @@ export default {
           this.currentType = "sell";
           break;
       }
+    },
+    backClick() {
+      this.$refs.scroll.scrollTo(0, 0);
+    },
+    ccontentScroll(position) {
+      this.isShowBackTop = -position.y > 1000;
     },
 
     /**
