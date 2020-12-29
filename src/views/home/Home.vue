@@ -31,6 +31,7 @@ import scroll from "@/components/commson/scroll/scroll";
 import BackTop from "@/components/content/backTop/backTop";
 
 import { getHomeMultidata, getHomeGoods } from "@/network/home";
+import { debounce } from "@/common/utils";
 
 export default {
   name: "Home",
@@ -43,6 +44,7 @@ export default {
     GoodsList,
     scroll,
     BackTop,
+    debounce,
   },
   data() {
     return {
@@ -77,15 +79,6 @@ export default {
     /**
      * 事件监听相关方法
      */
-    debounce(func, delay) {
-      let timer = null;
-      return function (...args) {
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(() => {
-          func.apply(this, args);
-        }, delay);
-      };
-    },
     tabClick(index) {
       switch (index) {
         case 0:
