@@ -14,3 +14,5 @@ request({
 }).catch(res => {
 
 })
+
+Vue.prototype.$bus = new Vue()

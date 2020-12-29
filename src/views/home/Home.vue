@@ -2,7 +2,12 @@
   <div id="home">
     <nav-bar class="home-nav"><template #center>购物街</template></nav-bar>
 
-    <scroll ref="scroll" :probe-type="3" @scroll="ccontentScroll">
+    <scroll
+      ref="scroll"
+      :probe-type="3"
+      @scroll="contentScroll"
+      :pull-up-load="true"
+    >
       <home-swiper :banners="banners"></home-swiper>
       <home-recommand-views :recommends="recommends"></home-recommand-views>
       <home-feature-view></home-feature-view>
@@ -55,10 +60,16 @@ export default {
   created() {
     // 1.请求多个数据
     this.getHomeMultidata();
+
     // 2.请求商品数据
     this.getHomeGoods("pop");
     this.getHomeGoods("news");
     this.getHomeGoods("sell");
+
+    // 3. 监听item中图片加载完成
+    this.$bus.$on("itemImageLoad", () => {
+      this.$refs.scroll.refresh();
+    });
   },
   methods: {
     /**
@@ -80,7 +91,7 @@ export default {
     backClick() {
       this.$refs.scroll.scrollTo(0, 0);
     },
-    ccontentScroll(position) {
+    contentScroll(position) {
       this.isShowBackTop = -position.y > 1000;
     },
 

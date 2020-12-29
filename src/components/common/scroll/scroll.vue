@@ -27,7 +27,9 @@ export default {
     this.scroll = new BScroll(this.$refs.wrapper, {
       click: true,
       probeType: this.probeType,
+      pullUpLoad: this.pullUpLoad,
     });
+
     // 2.监听滚动的位置
     this.scroll.on("scroll", (position) => {
       this.$emit("scroll", position);
@@ -36,6 +38,9 @@ export default {
   methods: {
     scrollTo(x, y, time = 300) {
       this.scroll.scrollTo(x, y, time);
+    },
+    refresh() {
+      this.scroll.refresh();
     },
   },
 };
